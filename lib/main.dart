@@ -13,10 +13,11 @@ class MainWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Constants().pastelRed)
+        
       ),
       title: "LightHouse Prototype",
-      home: HomePage()
+      home: HomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

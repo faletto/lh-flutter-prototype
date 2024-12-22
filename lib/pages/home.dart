@@ -7,14 +7,18 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Constants().pastelRed,
       appBar: AppBar(
-        title: const Text("LightHouse", style: TextStyle(
-           
-        ),),
         backgroundColor: Constants().pastelRed,
+        title: const Text("LightHouse", style: TextStyle(
+           fontFamily: "Comfortaa",
+           fontWeight: FontWeight.w900,
+           color: Colors.white
+        ),),
         centerTitle: true,
 
       ),
+      
     );
   }
 }
