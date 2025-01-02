@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:lighthouse_prototype/pages/home.dart";
+import "package:lighthouse_prototype/pages/data_entry.dart";
 import "package:lighthouse_prototype/constants.dart";
 
 void main() {
@@ -18,6 +19,10 @@ class MainWidget extends StatelessWidget {
       title: "LightHouse Prototype",
       home: HomePage(),
       debugShowCheckedModeBanner: false,
+      routes: {
+        "/home": (context) => HomePage(),
+        "/entry": (context) => DataEntry()
+      },
     );
   }
 }
