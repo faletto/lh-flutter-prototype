@@ -4,20 +4,30 @@ import "package:flutter/material.dart";
 import "package:lighthouse_prototype/constants.dart";
 import "package:lighthouse_prototype/layouts.dart";
 import "package:lighthouse_prototype/pages/entry_widgets.dart";
+
 class DataEntry extends StatelessWidget {
   const DataEntry({super.key});
-
+  static final Map<String, String> exportData = {};
   @override
   Widget build(BuildContext context) {
-    final parsedData = json.decode(testJson);
-    final widgetList = (parsedData["widgets"] as List).map((widgetData) {
+    final layoutJSON = json.decode(testJson);
+    final widgetList = (layoutJSON["widgets"] as List).map((widgetData) {
       final title = widgetData["title"];
       final type = widgetData["type"];
+      final jsonKey = widgetData["jsonKey"];
 
-      if (type == "spinbox") {return Spinbox(title: title);}
-      if (type == "textbox") {return BoxForText(title: title);}
+      if (type == "spinbox") {return Spinbox(title: title,jsonKey: jsonKey,);}
+      if (type == "textbox") {return BoxForText(title: title, jsonKey: jsonKey,);}
       return Text("type $type isn't a valid type you idiot");
     }).toList();
+    widgetList.add(SaveJsonButton());
+
+    exportData.clear();
+    for (var widgetData in layoutJSON["widgets"]) {
+      final key = widgetData["jsonKey"];
+      exportData[key] = "undefined";
+    }
+
 
     return Scaffold(
       appBar: AppBar(
@@ -42,3 +52,17 @@ class DataEntry extends StatelessWidget {
     );
   }
 }
+
+class SaveJsonButton extends StatelessWidget {
+  const SaveJsonButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(onPressed: () {
+      showDialog(context: context, builder: (BuildContext context) {
+        return AlertDialog(content: Text(json.encode(DataEntry.exportData)),);
+      });
+    }, child: Text("Save"));
+  }
+}
+
