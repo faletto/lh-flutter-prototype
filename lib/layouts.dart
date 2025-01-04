@@ -1,4 +1,4 @@
-String testJson = """{"widgets": [
+Map<String, dynamic> testJson = {"widgets": [
     {
         "title": "JSON Test 1 Spinbox",
         "type": "spinbox",
@@ -10,9 +10,9 @@ String testJson = """{"widgets": [
         "jsonKey": "test2"
     }
     
-]}""";
+]};
 
-String coolerTestJson = """{"widgets": [
+Map<String, dynamic> coolerTestJson = {"widgets": [
     {
         "title": "Super awesome checkbox",
         "type": "checkbox",
@@ -59,9 +59,9 @@ String coolerTestJson = """{"widgets": [
         "type": "spinbox",
         "jsonKey" : "test9"
     }
-]}""";
+]};
 
-String barebonesNRG = """{"widgets": [
+Map<String,dynamic> barebonesNRG = {"widgets": [
   {
     "title": "Team Number",
     "type": "numberbox",
@@ -99,10 +99,10 @@ String barebonesNRG = """{"widgets": [
     "type": "textboxLarge",
     "jsonKey": "comments"
   }
-]}""";
+]};
 
 
-Map<String, String> layoutMap = {
+Map<String, Map> layoutMap = {
   "testJson" : testJson,
   "coolerTestJson" : coolerTestJson,
   "barebonesNRG" : barebonesNRG,

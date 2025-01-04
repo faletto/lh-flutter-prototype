@@ -43,3 +43,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+.vscode/settings.json
+ios/Podfile
+ios/Flutter/Release.xcconfig
+ios/Flutter/Debug.xcconfig
+macos/Flutter/Flutter-Debug.xcconfig
+macos/Flutter/Flutter-Release.xcconfig

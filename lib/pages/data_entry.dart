@@ -11,7 +11,7 @@ class DataEntry extends StatelessWidget {
   static final Map<String, String> exportData = {};
   @override
   Widget build(BuildContext context) {
-    final layoutJSON = json.decode(layoutMap.containsKey(activeConfig) ? layoutMap[activeConfig]! : "{}");
+    final layoutJSON = layoutMap.containsKey(activeConfig) ? layoutMap[activeConfig]! : Map();
     final widgetList = (layoutJSON["widgets"] as List).map((widgetData) {
       final title = widgetData["title"];
       final type = widgetData["type"];
