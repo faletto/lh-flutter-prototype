@@ -7,10 +7,12 @@ import "package:lighthouse_prototype/layouts.dart";
 import "package:lighthouse_prototype/pages/entry_widgets.dart";
 
 class DataEntry extends StatelessWidget {
+  
   const DataEntry({super.key});
   static final Map<String, String> exportData = {};
   @override
   Widget build(BuildContext context) {
+    final String activeConfig = (ModalRoute.of(context)?.settings.arguments as String?)!;
     final layoutJSON = layoutMap.containsKey(activeConfig) ? layoutMap[activeConfig]! : Map();
     final widgetList = (layoutJSON["widgets"] as List).map((widgetData) {
       final title = widgetData["title"];

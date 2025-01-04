@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
         width: screenWidth,
         height: screenHeight,
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage("assets/images/Background.png"), colorFilter: ColorFilter.mode(Constants().pastelYellow, BlendMode.color),
+          image: DecorationImage(image: AssetImage("assets/images/background-hires.png"),
           fit: BoxFit.cover)
         ),
         child: const Placeholder()
@@ -49,8 +49,7 @@ class HomePage extends StatelessWidget {
       child: PopupMenuButton(
         icon: Icon(Icons.add),
         onSelected:(value) {
-          activeConfig = value;
-          Navigator.pushNamed(context, "/entry");
+          Navigator.pushNamed(context, "/entry", arguments:value);
         },
         itemBuilder: (BuildContext context) {
           final enabledLayouts = configData["enabledLayouts"]!.split(",");

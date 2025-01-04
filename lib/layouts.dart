@@ -108,4 +108,5 @@ Map<String, Map> layoutMap = {
   "barebonesNRG" : barebonesNRG,
 };
 
+// TODO: Add icon bindings
 
