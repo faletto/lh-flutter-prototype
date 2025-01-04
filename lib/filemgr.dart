@@ -62,6 +62,13 @@ Future<int> saveConfig() async {
   return 0;
 }
 
+List<String> getFiles()  {
+  final eventKeyDirectory = Directory("$configFolder/${configData["eventKey"]}");
+  if (!(eventKeyDirectory.existsSync())) { return ["No matches recorded for ${configData["eventKey"]}. Why not create one?"];}
+  List<FileSystemEntity> eventKeyFiles = eventKeyDirectory.listSync().toList();
+  return eventKeyFiles.whereType<File>().map((file) => file.uri.pathSegments.last).toList();
+}
+
 final String defaultConfig = """{
     "eventKey": "2025nrg",
     "enabledLayouts": "barebonesNRG"

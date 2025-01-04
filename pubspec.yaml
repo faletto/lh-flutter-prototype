@@ -84,6 +84,7 @@ flutter:
            style: italic
          - asset: fonts/Comfortaa-Bold.ttf
            weight: 700
+   
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

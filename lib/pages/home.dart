@@ -12,12 +12,6 @@ class HomePage extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     loadConfig();
-
-   
-    
-    
-  
-
     return Scaffold(
       backgroundColor: Constants().pastelRed,
       appBar: AppBar(
@@ -28,7 +22,14 @@ class HomePage extends StatelessWidget {
            color: Colors.white
         ),),
         centerTitle: true,
-        actions: [IconButton(icon: Icon(Icons.settings), onPressed: () {
+        actions: [IconButton(icon: Icon(Icons.javascript_outlined), onPressed: (() {
+          showDialog(context: context, builder: (BuildContext context) {
+            return AlertDialog(
+              content: Text(jsonEncode(configData).toString())
+              );
+          });
+        }), ), 
+        IconButton(icon: Icon(Icons.settings), onPressed: () {
           Navigator.pushNamed(context, "/settings");
         } )],
       ),
@@ -40,13 +41,7 @@ class HomePage extends StatelessWidget {
           image: DecorationImage(image: AssetImage("assets/images/Background.png"), colorFilter: ColorFilter.mode(Constants().pastelYellow, BlendMode.color),
           fit: BoxFit.cover)
         ),
-        child: IconButton(icon: Icon(Icons.javascript_outlined), onPressed: (() {
-          showDialog(context: context, builder: (BuildContext context) {
-            return AlertDialog(
-              content: Text(jsonEncode(configData).toString())
-              );
-          });
-        }), )
+        child: const Placeholder()
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {},
       backgroundColor: Constants().pastelRed,
@@ -76,6 +71,3 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// (context) => [
-//           PopupMenuItem(value: "entry", child: Row(children: [Icon(Icons.bathtub,),Text("Entry Page :D")],))
-//         ])
