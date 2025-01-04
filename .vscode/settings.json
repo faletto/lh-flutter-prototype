@@ -1,3 +1,4 @@
 {
-    "workbench.tree.enableStickyScroll": false
+    "workbench.tree.enableStickyScroll": false,
+    "java.compile.nullAnalysis.mode": "automatic"
 }
