@@ -1,9 +1,13 @@
 import "package:flutter/material.dart";
+import "package:lighthouse_prototype/filemgr.dart";
 import "package:lighthouse_prototype/pages/home.dart";
 import "package:lighthouse_prototype/pages/data_entry.dart";
 import "package:lighthouse_prototype/constants.dart";
+import "package:lighthouse_prototype/pages/settings.dart";
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initConfig();
   runApp(MainWidget());
 }
 
@@ -12,6 +16,8 @@ class MainWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    
     return MaterialApp(
       theme: ThemeData(
         
@@ -21,7 +27,8 @@ class MainWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         "/home": (context) => HomePage(),
-        "/entry": (context) => DataEntry()
+        "/entry": (context) => DataEntry(),
+        "/settings": (context) => SettingsPage()
       },
     );
   }

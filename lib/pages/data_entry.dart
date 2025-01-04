@@ -2,6 +2,7 @@ import "dart:convert";
 
 import "package:flutter/material.dart";
 import "package:lighthouse_prototype/constants.dart";
+import "package:lighthouse_prototype/filemgr.dart";
 import "package:lighthouse_prototype/layouts.dart";
 import "package:lighthouse_prototype/pages/entry_widgets.dart";
 
@@ -10,14 +11,21 @@ class DataEntry extends StatelessWidget {
   static final Map<String, String> exportData = {};
   @override
   Widget build(BuildContext context) {
-    final layoutJSON = json.decode(testJson);
+    final layoutJSON = json.decode(layoutMap.containsKey(activeConfig) ? layoutMap[activeConfig]! : "{}");
     final widgetList = (layoutJSON["widgets"] as List).map((widgetData) {
       final title = widgetData["title"];
       final type = widgetData["type"];
       final jsonKey = widgetData["jsonKey"];
 
-      if (type == "spinbox") {return Spinbox(title: title,jsonKey: jsonKey,);}
-      if (type == "textbox") {return BoxForText(title: title, jsonKey: jsonKey,);}
+      if (type == "spinbox") {return NRGSpinbox(title: title,jsonKey: jsonKey,);}
+      if (type == "textbox") {return NRGTextBox(title: title, jsonKey: jsonKey,);}
+      if (type == "textboxLarge") {return NRGTextBox(title: title, jsonKey: jsonKey, height: "200");}
+      if (type == "checkbox") {return NRGCheckbox(title: title, jsonKey: jsonKey);}
+      if (type == "numberbox") {return NRGTextBox(title: title, jsonKey: jsonKey, numeric: true);}
+      if (type == "dropdown") {
+        if (!(widgetData.containsKey("options"))) { return Text("Widget $title doesn't have dropdown options specified.");}
+        final options = widgetData["options"].split(",");
+        return NRGDropdown(title: title, jsonKey: jsonKey,options: options,);}
       return Text("type $type isn't a valid type you idiot");
     }).toList();
     widgetList.add(SaveJsonButton());
@@ -25,7 +33,7 @@ class DataEntry extends StatelessWidget {
     exportData.clear();
     for (var widgetData in layoutJSON["widgets"]) {
       final key = widgetData["jsonKey"];
-      exportData[key] = "undefined";
+      exportData[key] = "0";
     }
 
 
@@ -42,13 +50,19 @@ class DataEntry extends StatelessWidget {
       ),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.only(top: 10),
-          child: Column(
-            spacing: 10,
-            children: widgetList,
+          padding: const EdgeInsets.only(top:10.0),
+          child: ListView.builder(
+            itemCount: widgetList.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(top:10.0),
+                child: widgetList[index],
+              );
+            },
           ),
         ),
       )
+      
     );
   }
 }
@@ -58,10 +72,14 @@ class SaveJsonButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(onPressed: () {
-      showDialog(context: context, builder: (BuildContext context) {
-        return AlertDialog(content: Text(json.encode(DataEntry.exportData)),);
-      });
+    return TextButton(onPressed: () async {
+      if (await saveExport() == 0) {
+        showDialog(context: context, builder: (BuildContext context) {
+          return AlertDialog(content: Text("Successfully saved."),actions: [
+            TextButton(onPressed: () {Navigator.pushNamed(context, "/home");}, child: Text("OK"))
+          ],);
+        });
+      }
     }, child: Text("Save"));
   }
 }
